@@ -52,4 +52,28 @@ bin/pulsar-admin functions create --py /pulsar/pulsar-pychat-function/src/sentim
 ````
 bin/pulsar-admin functions get --tenant public --namespace default --name Chat
 bin/pulsar-admin functions status --tenant public --namespace default --name Chat
+bin/pulsar-admin functions stats --tenant public --namespace default --name Chat
 ````
+
+## config file
+
+````
+
+bin/pulsar-admin functions create --py /pulsar/pulsar-pychat-function/src/sentiment.py  --classname sentiment.Chat --tenant public --namespace default --name Chat --inputs persistent://public/default/chat --output persistent://public/default/chatresult 
+   
+bin/pulsar-admin functions create --functionConfigFile ./chat.yaml
+    
+chat.yaml
+
+name: Chat
+tenant: public
+namespace: default
+py: /pulsar/pulsar-pychat-function/src/sentiment.py
+className: sentiment.Chat
+inputs: 
+- persistent://public/default/chat
+output: persistent://public/default/chatresult
+brokerServiceUrl: pulsar://pulsar-mini-proxy:6650
+
+
+
