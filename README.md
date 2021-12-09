@@ -27,9 +27,25 @@ bin/pulsar-admin functions create \
   --name reverse
 ````
 
-## correct syntax
+## correct syntax for localrun
+
+## connect to k8 node and run from there
 
 ````
-bin/pulsar-admin functions localrun --broker-service-url pulsar://pulsar-mini-proxy:6650/ --py /pulsar/pulsar-pychat-function/src/sentiment.py   --classname sentiment.Chat --inputs persistent://public/default/chat --output persistent://public/default/chatresult --tenant public --namespace default --name Chat
+kubectl exec -it -n pulsar pulsar-mini-toolset-0 -- /bin/bash
 
+pip3 install --upgrade pip
+pip3 install vaderSentiment
+python3 pulsar-pychat-function/src/sentiment.py 
+
+bin/pulsar-admin functions localrun --broker-service-url pulsar://pulsar-mini-proxy:6650/ --py /pulsar/pulsar-pychat-function/src/sentiment.py   --classname sentiment.Chat --inputs persistent://public/default/chat --output persistent://public/default/chatresult --tenant public --namespace default --name Chat
+````
+
+## create function
+
+````
+bin/pulsar-admin functions create --py /pulsar/pulsar-pychat-function/src/sentiment.py  --classname sentiment.Chat --tenant public --namespace default --name Chat --inputs persistent://public/default/chat --output persistent://public/default/chatresult 
+
+
+  
 ````
