@@ -29,7 +29,7 @@ bin/pulsar-admin functions create \
 
 ## correct syntax for localrun
 
-## connect to k8 node and run from there
+## connect to k8 node and run from there localrun
 
 ````
 kubectl exec -it -n pulsar pulsar-mini-toolset-0 -- /bin/bash
@@ -41,11 +41,15 @@ python3 pulsar-pychat-function/src/sentiment.py
 bin/pulsar-admin functions localrun --broker-service-url pulsar://pulsar-mini-proxy:6650/ --py /pulsar/pulsar-pychat-function/src/sentiment.py   --classname sentiment.Chat --inputs persistent://public/default/chat --output persistent://public/default/chatresult --tenant public --namespace default --name Chat
 ````
 
-## create function
+## create function and deploy
 
 ````
 bin/pulsar-admin functions create --py /pulsar/pulsar-pychat-function/src/sentiment.py  --classname sentiment.Chat --tenant public --namespace default --name Chat --inputs persistent://public/default/chat --output persistent://public/default/chatresult 
 
+````
 
-  
+## check function
+````
+bin/pulsar-admin functions get --tenant public --namespace default --name Chat
+bin/pulsar-admin functions status --tenant public --namespace default --name Chat
 ````
