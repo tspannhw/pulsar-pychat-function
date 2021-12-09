@@ -76,4 +76,17 @@ output: persistent://public/default/chatresult
 brokerServiceUrl: pulsar://pulsar-mini-proxy:6650
 
 
+bin/pulsar-admin functions list --tenant public --namespace default
 
+bin/pulsar-admin functions trigger --tenant public --namespace default --name Chat --topic persistent://public/default/chat \
+    --trigger-value "hello pulsar functions"
+
+bin/pulsar-admin topics create persistent://public/default/chat
+bin/pulsar-admin topics create persistent://public/default/chatresult
+bin/pulsar-admin topics create persistent://public/default/chatlog
+bin/pulsar-admin topics create persistent://public/default/chatdead
+
+bin/pulsar-client consume "persistent://public/default/chat" -s "fnchatreader" -n 0
+bin/pulsar-client consume "persistent://public/default/chatresult" -s "fnchatresultreader" -n 0
+  
+````
