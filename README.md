@@ -88,6 +88,8 @@ bin/pulsar-admin topics create persistent://public/default/chat
 bin/pulsar-admin topics create persistent://public/default/chatresult
 bin/pulsar-admin topics create persistent://public/default/chatlog
 bin/pulsar-admin topics create persistent://public/default/chatdead
+bin/pulsar-admin topics create persistent://public/default/chat2
+bin/pulsar-admin topics create persistent://public/default/chatresult2
 
 bin/pulsar-client consume "persistent://public/default/chat" -s "fnchatreader" -n 0
 bin/pulsar-client consume "persistent://public/default/chatresult" -s "fnchatresultreader" -n 0
