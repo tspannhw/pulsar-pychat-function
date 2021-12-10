@@ -6,6 +6,10 @@
 bin/pulsar-admin functions localrun --broker-service-url pulsar://pulsar-mini-proxy:6650/ --py /pulsar/pulsar-pychat-function/src/sentiment.py \
   --classname sentiment.Chat --inputs persistent://public/default/chat --output persistent://public/default/chatresult --tenant public --namespace default --name Chat
   
+bin/pulsar-admin functions localrun --broker-service-url pulsar://pulsar-mini-proxy:6650/ --py /pulsar/pulsar-pychat-function/src/sentiment.py \
+  --classname sentiment.Chat --inputs persistent://public/default/chat2 --output persistent://public/default/chatresult2 --tenant public --namespace default --name Chat
+  
+  
 /pulsar/bin/pulsar-admin functions localrun \
 --broker-service-url pulsar://broker_container:6650 \
 --tenant user1 \
