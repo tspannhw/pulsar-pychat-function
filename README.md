@@ -94,4 +94,8 @@ bin/pulsar-admin topics create persistent://public/default/chatresult2
 bin/pulsar-client consume "persistent://public/default/chat" -s "fnchatreader" -n 0
 bin/pulsar-client consume "persistent://public/default/chatresult" -s "fnchatresultreader" -n 0
   
+  
+bin/pulsar-admin sink stop --name scyalla-test-sink --namespace default --tenant public
+
+bin/pulsar-admin sinks delete --tenant public --namespace default --name scyalla-test-sink
 ````
