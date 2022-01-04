@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
-import json
 from pulsar import Function
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+import json
 
 class Chat(Function):
     def __init__(self):
@@ -11,9 +11,11 @@ class Chat(Function):
     def process(self, input, context):
         logger = context.get_logger()
         logger.info("Message Content: {0}".format(input))
+        msg_id = context.get_message_id()
+
         fields = json.loads(input)
         sid = SentimentIntensityAnalyzer()
-        ss = sid.polarity_scores(fields['comment'])
+        ss = sid.polarity_scores(fields["comment"])
         logger.info("Polarity: {0}".format(ss['compound']))
         sentimentVal = 'Neutral'
         if ss['compound'] == 0.00:
@@ -22,4 +24,12 @@ class Chat(Function):
             sentimentVal = 'Negative'
         else:
             sentimentVal = 'Positive'
-        return sentimentVal
+        row = { }
+
+        row['id'] = str(msg_id)
+        row['sentiment'] = str(sentimentVal)
+        row['userInfo'] = str(fields["userInfo"])
+        row['comment'] = str(fields["comment"])
+        row['contactInfo'] = str(fields["contactInfo"])
+        json_string = json.dumps(row)
+        return json_string
